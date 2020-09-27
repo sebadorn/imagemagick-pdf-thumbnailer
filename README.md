@@ -19,6 +19,8 @@ sudo chmod +x /usr/bin/imagemagick-pdf-thumbnailer
 sudo cp imagemagick-pdf.thumbnailer /usr/share/thumbnailers/
 ```
 
+It is very likely you already have a PDF thumbnailer in `/usr/share/thumbnailers/`, e.g. `evince.thumbnailer`. Edit its file and remove `application/pdf;` from its list of handled mime types.
+
 You may have to restart Nautilus first.
 
 Then delete `~/.cache/thumbnails/fail/` so that all failed attempts to create a thumbnail are retried the next time the file is visible in the file viewer (probably Nautilus).
@@ -29,6 +31,10 @@ Then delete `~/.cache/thumbnails/fail/` so that all failed attempts to create a 
 Delete the files:
 * `/usr/share/thumbnailers/imagemagick-pdf.thumbnailer`
 * `/usr/bin/imagemagick-pdf-thumbnailer`
+
+Restore the evince thumbnailer by doing the opposite from the step above – add back `application/pdf` to the mime type list.
+
+Probably restart Nautilus.
 
 
 ## Resources
