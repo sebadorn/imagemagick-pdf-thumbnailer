@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=imagemagick-pdf-thumbnailer
+Exec=imagemagick-pdf-thumbnailer -i %i -o %o -s %s
+MimeType=application/pdf
