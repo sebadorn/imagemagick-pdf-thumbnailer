@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='1.0.1'
+VERSION='1.0.2'
 
 function print_help {
 	echo "imagemagick-pdf-thumbnailer $VERSION"
@@ -78,5 +78,13 @@ if [ "$EXTENSION" != 'pdf' ]; then
 fi
 
 
+# Workaround for a GNOME bug where calls to /etc/alternatives/convert would not work.
+# @see https://bugs.launchpad.net/ubuntu/+source/gnome-desktop3/+bug/1808702
+CONVERT_TOOL=$(readlink $(readlink '/usr/bin/convert'))
+
+if [ -z "$CONVERT_TOOL" ]; then
+	CONVERT_TOOL='convert'
+fi
+
 # Create the thumbnail.
-/usr/bin/convert-im6.q16 -thumbnail "${SIZE_LIMIT}x${SIZE_LIMIT}" "$FILE_IN"[0] -flatten "$FILE_OUT"
+$CONVERT_TOOL -thumbnail "${SIZE_LIMIT}x${SIZE_LIMIT}" "$FILE_IN"[0] -flatten "$FILE_OUT"
